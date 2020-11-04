@@ -44,6 +44,9 @@ namespace LabWeek11App
             case "create_clock":
                ProcessCreateClock(tokens[1]);
                break;
+            case "clock":
+               ProcessClock();
+               break;
          }
       }
 
@@ -70,7 +73,7 @@ namespace LabWeek11App
          _remoteServer.ConnectToRemoteEndPoint(_localServer.IPAddress, Int32.Parse(parameters));
       }
 
-      private void ProcessClockCreate(string parameters)
+      private void ProcessCreateClock(string parameters)
       {
          int interval = Int32.Parse(parameters.Split('|')[0]);
          int step = Int32.Parse(parameters.Split('|')[1]);
@@ -78,6 +81,11 @@ namespace LabWeek11App
          _localServer.Clock = new LogicalClock(interval, step);
          _localServer.Clock.Start();
          _localServer.ReportMessage("Started Clock!");
+      }
+
+      private void ProcessClock()
+      {
+         _localServer.ReportMessage("Clock current counter: " + _localServer.Clock.Counter);
       }
    }
 }
