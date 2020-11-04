@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace LabWeek11App
 {
@@ -10,7 +12,7 @@ namespace LabWeek11App
       private readonly ConcurrentBag<IObserver<string>> _observers;
       int PortNumber { get; set; }
       IPAddress IPAddress { get; set; }
-      private SocketAddress _listener { get; set; }
+      private Socket _listener { get; set; }
       private IPEndPoint _localEndPoint { get; set; }
 
 
@@ -19,6 +21,35 @@ namespace LabWeek11App
       {
          _observers = new ConcurrentBag<IObserver<string>>();
          PortNumber = portNumber;
+      }
+
+      public void SetUpLocalEndPoint()
+      {
+         string strHostName = Dns.GetHostName();
+         IPHostEntry ipHostEntry = Dns.GetHostEntry(strHostName);
+         IPAddress IPAddress = ipHostEntry.AddressList[4];
+         _localEndPoint = new IPEndPoint(IPAddress, PortNumber);
+      }
+
+      public void StartListening()
+      {
+         _listener = new Socket(IPAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+         _listener.Connect(_localEndPoint);
+      }
+
+      private void ProcessRequests(Socket handler)
+      {
+         handler.Shutdown(SocketShutdown.Both);
+         handler.Close();
+      }
+      
+      public void WaitForConnection()
+      {
+         ReportMessage("Waiting for a connection...");
+         Socket handler = _listener.Accept();
+         Task.Factory.StartNew(
+            () => HandleRequest(handler)
+         );
       }
 
       public IDisposable Subscribe(IObserver<string> observer)
