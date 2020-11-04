@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace LabWeek11App
 {
-   class LogicalClock : IDisposable
+   public class LogicalClock : IDisposable
    {
       private System.Timers.Timer _timer;
       private int _interval;

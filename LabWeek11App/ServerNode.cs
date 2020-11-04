@@ -15,6 +15,8 @@ namespace LabWeek11App
       private Socket _listener { get; set; }
       private IPEndPoint _localEndPoint { get; set; }
 
+      public LogicalClock Clock { get; set; }
+
 
 
       public ServerNode(int portNumber)
