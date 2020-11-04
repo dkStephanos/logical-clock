@@ -18,5 +18,13 @@ namespace LabWeek11App
          _remoteSocket = null;
          RemoteEndPoint = null;
       }
+
+      public void ConnectToRemoteEndPoint(IPAddress serverIpAddress, int serverPort)
+      {
+         RemoteEndPoint = new IPEndPoint(serverIpAddress, serverPort);
+         _remoteSocket = new Socket(serverIpAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+         _remoteSocket.Connect(RemoteEndPoint);
+         LocalServer.ReportMessage("Set up connection to: " + serverIpAddress + ":" + serverPort);
+      }
    }
 }

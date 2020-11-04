@@ -13,6 +13,7 @@ namespace LabWeek11App
    public partial class AppForm : Form
    {
       private ServerNode _localServer;
+      private RemoteNode _remoteServer;
 
       public AppForm()
       {
@@ -37,6 +38,9 @@ namespace LabWeek11App
             case "set": // e.g. set 5001
                ProcessSet(tokens[1]);
                break;
+            case "connect":
+               ProcessConnect(tokens[1]);
+               break;
          }
       }
 
@@ -55,6 +59,12 @@ namespace LabWeek11App
          );
 
          OutputBox.Text += "Port: " + port;
+      }
+
+      private void ProcessConnect(string paramters)
+      {
+         _remoteServer = new RemoteNode(_localServer);
+         _remoteServer.ConnectToRemoteEndPoint(_localServer.IPAddress, Int32.Parse(paramters));
       }
    }
 }

@@ -39,6 +39,7 @@ namespace LabWeek11App
 
       private void ProcessRequests(Socket handler)
       {
+         ReportMessage("CONNECTED TO: " + handler);
          handler.Shutdown(SocketShutdown.Both);
          handler.Close();
       }
