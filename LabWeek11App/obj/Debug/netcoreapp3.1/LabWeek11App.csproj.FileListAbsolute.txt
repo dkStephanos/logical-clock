@@ -1,0 +1,15 @@
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.exe
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.deps.json
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.runtimeconfig.json
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.runtimeconfig.dev.json
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.dll
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\bin\Debug\netcoreapp3.1\LabWeek11App.pdb
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.csprojAssemblyReference.cache
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.AppForm.resources
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.csproj.GenerateResource.cache
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.AssemblyInfoInputs.cache
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.AssemblyInfo.cs
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.csproj.CoreCompileInputs.cache
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.dll
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.pdb
+C:\Users\Stephanos\Documents\Fall 2020\Distributed Systems\Lab Week 11\LabWeek11App\obj\Debug\netcoreapp3.1\LabWeek11App.genruntimeconfig.cache
