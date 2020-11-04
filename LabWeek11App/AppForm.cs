@@ -12,6 +12,8 @@ namespace LabWeek11App
 {
    public partial class AppForm : Form
    {
+      private ServerNode _localServer;
+
       public AppForm()
       {
          InitializeComponent();
@@ -42,6 +44,16 @@ namespace LabWeek11App
       {
          // parameters ::= <port>
          var port = Int32.Parse(parameters);
+         _localServer = new ServerNode(port);
+         _localServer.Subscribe(new StringObserver(OutputBox));
+         _localServer.SetUpLocalEndPoint();
+         _localServer.ReportMessage("\nIP Address: " + _localServer.IPAddress);
+         _localServer.StartListening();
+
+         Task.Factory.StartNew(
+            () => _localServer.WaitForConnection()
+         );
+
          OutputBox.Text += "Port: " + port;
       }
    }

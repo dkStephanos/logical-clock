@@ -10,8 +10,8 @@ namespace LabWeek11App
    public class ServerNode : IObservable<string>
    {
       private readonly ConcurrentBag<IObserver<string>> _observers;
-      int PortNumber { get; set; }
-      IPAddress IPAddress { get; set; }
+      public int PortNumber { get; set; }
+      public IPAddress IPAddress { get; set; }
       private Socket _listener { get; set; }
       private IPEndPoint _localEndPoint { get; set; }
 
@@ -25,16 +25,16 @@ namespace LabWeek11App
 
       public void SetUpLocalEndPoint()
       {
-         string strHostName = Dns.GetHostName();
-         IPHostEntry ipHostEntry = Dns.GetHostEntry(strHostName);
-         IPAddress IPAddress = ipHostEntry.AddressList[4];
+         IPHostEntry _ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+         IPAddress = _ipHostInfo.AddressList[0];
          _localEndPoint = new IPEndPoint(IPAddress, PortNumber);
       }
 
       public void StartListening()
       {
          _listener = new Socket(IPAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-         _listener.Connect(_localEndPoint);
+         _listener.Bind(_localEndPoint);
+         _listener.Listen(10);
       }
 
       private void ProcessRequests(Socket handler)
@@ -45,11 +45,14 @@ namespace LabWeek11App
       
       public void WaitForConnection()
       {
-         ReportMessage("Waiting for a connection...");
-         Socket handler = _listener.Accept();
-         Task.Factory.StartNew(
-            () => HandleRequest(handler)
-         );
+         do
+         {
+            ReportMessage("Waiting for a connection...");
+            Socket handler = _listener.Accept();
+            Task.Factory.StartNew(
+               () => ProcessRequests(handler)
+            );
+         } while (true);
       }
 
       public IDisposable Subscribe(IObserver<string> observer)
