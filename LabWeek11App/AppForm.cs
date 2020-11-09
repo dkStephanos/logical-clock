@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace LabWeek11App
    public partial class AppForm : Form
    {
       private ServerNode _localServer;
-      private RemoteNode _remoteServer;
+      private ConcurrentDictionary<int, RemoteNode> _remoteServers = new ConcurrentDictionary<int, RemoteNode>();
 
       public AppForm()
       {
@@ -40,6 +41,9 @@ namespace LabWeek11App
                break;
             case "connect":
                ProcessConnect(tokens[1]);
+               break;
+            case "send":
+               ProcessSend(tokens[1]);
                break;
             case "create_clock":
                ProcessCreateClock(tokens[1]);
@@ -69,8 +73,20 @@ namespace LabWeek11App
 
       private void ProcessConnect(string parameters)
       {
-         _remoteServer = new RemoteNode(_localServer);
+         RemoteNode _remoteServer = new RemoteNode(_localServer);
          _remoteServer.ConnectToRemoteEndPoint(_localServer.IPAddress, Int32.Parse(parameters));
+         _remoteServers[Int32.Parse(parameters)] = _remoteServer;
+      }
+
+      private void ProcessSend(string paramters)
+      {
+         int port = Int32.Parse(paramters.Split('|')[0]);
+         string message = "Clock:" + _localServer.Clock.Counter + ": " + paramters.Split('|')[1];
+
+         foreach(var node in _remoteServers)
+         {
+            if (node.Key == port) node.Value.SendRequest(message);
+         }
       }
 
       private void ProcessCreateClock(string parameters)

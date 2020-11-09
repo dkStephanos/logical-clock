@@ -26,5 +26,11 @@ namespace LabWeek11App
          _remoteSocket.Connect(RemoteEndPoint);
          LocalServer.ReportMessage("Set up connection to: " + serverIpAddress + ":" + serverPort);
       }
+      public void SendRequest(string request)
+      {
+         LocalServer.ReportMessage($"SENDING: {request}");
+         byte[] msg = Encoding.ASCII.GetBytes(request + "<EOF>");
+         _remoteSocket.Send(msg);
+      }
    }
 }
