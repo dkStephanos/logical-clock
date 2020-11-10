@@ -42,7 +42,7 @@ namespace LabWeek11App
 
       private void ProcessRequests(Socket handler)
       {
-         ReportMessage("CONNECTED TO: " + handler);
+         ReportMessage("CONNECTED TO: " + handler.LocalEndPoint);
         
          byte[] buffer = new byte[1024];
          string data;
@@ -62,6 +62,17 @@ namespace LabWeek11App
                }
             }
             ReportMessage($"RECEIVED:{request} at {Clock.Counter}");
+            // Get clock value from other node and update ours if it is greater
+            string[] requestParts = request.Split(':');
+            ReportMessage($"Counter received: {requestParts[1]}");
+            if (Int32.Parse(requestParts[1]) > Clock.Counter)
+            {
+               Clock.Counter = Int32.Parse(requestParts[1]);
+               ReportMessage($"CLOCK UPDATED to {requestParts[1]}!");
+            } else
+            {
+               ReportMessage("Clock not updated");
+            }
          } while (request != "Exit");
       }
 

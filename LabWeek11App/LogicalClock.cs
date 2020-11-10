@@ -11,6 +11,8 @@ namespace LabWeek11App
       private int _interval;
       public long Counter { get; set; }
       public int Step { get; set; }
+      private static readonly object lockObject = new object();
+
 
       public LogicalClock(int interval, int step)
       {
@@ -24,7 +26,7 @@ namespace LabWeek11App
 
       public void OnTick(object sender, ElapsedEventArgs e)
       {
-         Counter += Step;
+         IncrementCounter(Step);
       }
 
       public void Start()
@@ -41,6 +43,22 @@ namespace LabWeek11App
       {
          Stop();
          _timer.Dispose();
+      }
+
+      public void IncrementCounter(int increment = 1)
+      {
+         lock (lockObject)
+         {
+            Counter += increment;
+         }
+      }
+
+      public void SetCounter(long counter)
+      {
+         lock (lockObject)
+         {
+            Counter = counter;
+         }
       }
    }
 }

@@ -81,6 +81,8 @@ namespace LabWeek11App
       private void ProcessSend(string paramters)
       {
          int port = Int32.Parse(paramters.Split('|')[0]);
+
+         _localServer.Clock.IncrementCounter();
          string message = "Clock:" + _localServer.Clock.Counter + ": " + paramters.Split('|')[1];
 
          foreach(var node in _remoteServers)
